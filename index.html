@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Genderize</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src='index.js'></script>
+</head>
+
+<body>
+    <section id="modal">
+        <div class="flex-container">
+            <div class="flex-item">
+                <h2>
+                    Mr. or Ms. ?
+                </h2>
+
+                <form>
+                    <div class="field-box">
+                        <label>Name:</label>
+                        <input type="text" class="name" name="name" placeholder="Please enter a name...">
+                    </div>
+                    <p>Please select your gender:</p>
+                    <div>
+                        <label class="radio-container">Male
+                            <input type="radio" id="male" name="gender" value="male" checked="checked">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-container">Female
+                            <input type="radio" id="female" name="gender" value="female">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <input type="button" name="save" id="save" value="Save" onclick="OnSave(this)">
+                    <input type="button" name="submit" id="submit" value="Submit" onclick="OnSubmit(this)">
+                </form>
+            </div>
+            <div class="flex-item">
+                Bye
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
