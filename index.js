@@ -13,15 +13,20 @@ function OnSubmit(button){
     console.log(button.name + " button")
     updateResultsBox(form["name"].value)
     showMessage('info', 'Name submitted')
-    resetForm(form)
 }
 
 function OnSave(button){
     form = document.getElementById("submission-form")
     name = form["name"].value
     gender = form["gender"].value
+    probability = 0
     console.log(button.name + " button")
-    saveRecordToLocalStorage(name, gender)
+    if (gender === ""){
+        gender = document.getElementById('result-gender').innerHTML
+        probability = document.getElementById('result-probability').innerHTML
+    }
+    console.log(name, gender, probability)
+    saveRecordToLocalStorage(name, gender, probability)
     showMessage('info', 'Name saved')
     resetForm(form)
     updateSavedResultsBox()
@@ -32,23 +37,25 @@ function resetForm(form){
 }
 
 function ResetSavedResults(){
-    document.getElementById('saved-results-box').innerHTML = 'No Results'
+
+    resetLocalStorage()
+    updateSavedResultsBox()
     showMessage('warn', 'Saved name cleared')
 }
 
-function validateName(form){
-    
-    return 0
-}
 
 function saveRecordToLocalStorage(name, gender, probability) {
     localStorage.setItem("previous_name", `{"name": "${name}" , "gender" :"${gender}", "probability":"${probability}"}`)
 }
 
+function resetLocalStorage(){
+    localStorage.removeItem('previous_name')
+}
+
 function getSavedResult(){
     saved = localStorage.getItem("previous_name")
-    if ( saved === undefined) {
-        return "No Results"
+    if ( saved === null) {
+        return {error:"No Results"}
     } 
 
     lsobj = JSON.parse(saved)
@@ -57,20 +64,28 @@ function getSavedResult(){
 
 function updateSavedResultsBox(){
     prevRes = getSavedResult()
-    res = `${prevRes.name} : ${prevRes.gender}`
+    console.log(prevRes)
+    res = ''
+    if(prevRes.error === undefined ){res = `${prevRes.name} : ${prevRes.gender}`}
+    else{
+        res = prevRes.error
+    }
     document.getElementById('saved-results-box').innerHTML = res
 }
 
 function updateResultsBox(name){
     prevRes = getSavedResult()
+    console.log(prevRes)
 
     if (prevRes.name === name){
         document.getElementById('result-gender').innerHTML = prevRes.gender
         document.getElementById('result-probability').innerHTML = prevRes.probability
+        return
     }
 
     getDataFromAPI(name)
         .then(data =>{
+            console.log(data)
             if (data.gender === 'male'){
                 document.getElementById('result-gender').innerHTML =  'Male'
                 document.getElementById('result-probability').innerHTML = data.probability
@@ -78,7 +93,9 @@ function updateResultsBox(name){
                 document.getElementById('result-gender').innerHTML =  'Female'
                 document.getElementById('result-probability').innerHTML = data.probability
             }
-            
+        return
+    }).catch(error => {
+        showMessage('error', error.Error)
     })
     
 }
@@ -88,13 +105,14 @@ function getDataFromAPI(name){
         method: 'GET',
     }).then(res => {
         if (!res.ok){
-            error = res.json()
+            resp = res.json()
+            console.log(resp)
             throw new Error(`Error: API response was not ok!, ${error.error}`)
         }
 
         return res.json()
     }).catch(error => {
-        showMessage('error', error.Error)
+        showMessage('error', error)
     })
     
 }
