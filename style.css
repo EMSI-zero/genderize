@@ -109,3 +109,17 @@ label {
     border-radius: 50%;
     background: white;
   }
+
+  input[type=button]{
+    background-color: aquamarine;
+    border-style: hidden;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    width: 100px;
+  }
+
+  .button-box{
+    display: flex;
+    flex-direction: column;
+  }
