@@ -1,5 +1,7 @@
+
+const basicURL = 'https://api.genderize.io/'
+
 window.onload = function(){
-    prevRes = getSavedResult()
     updateSavedResultsBox()
     showMessage('info', 'Welcome to Genderize!')
 }
@@ -7,7 +9,9 @@ window.onload = function(){
 
 function OnSubmit(button){
     form = document.getElementById("submission-form")
+    
     console.log(button.name + " button")
+    updateResultsBox(form["name"].value)
     showMessage('info', 'Name submitted')
     resetForm(form)
 }
@@ -37,8 +41,8 @@ function validateName(form){
     return 0
 }
 
-function saveRecordToLocalStorage(name, gender) {
-    localStorage.setItem("previous_name", `{"name": "${name}" , "gender" :"${gender}"}`)
+function saveRecordToLocalStorage(name, gender, probability) {
+    localStorage.setItem("previous_name", `{"name": "${name}" , "gender" :"${gender}", "probability":"${probability}"}`)
 }
 
 function getSavedResult(){
@@ -48,13 +52,51 @@ function getSavedResult(){
     } 
 
     lsobj = JSON.parse(saved)
-    prevName = lsobj.name
-    prevGender = lsobj.gender
-    return `${prevName} : ${prevGender}`
+    return lsobj
 }
 
 function updateSavedResultsBox(){
-    document.getElementById('saved-results-box').innerHTML = getSavedResult()
+    prevRes = getSavedResult()
+    res = `${prevRes.name} : ${prevRes.gender}`
+    document.getElementById('saved-results-box').innerHTML = res
+}
+
+function updateResultsBox(name){
+    prevRes = getSavedResult()
+
+    if (prevRes.name === name){
+        document.getElementById('result-gender').innerHTML = prevRes.gender
+        document.getElementById('result-probability').innerHTML = prevRes.probability
+    }
+
+    getDataFromAPI(name)
+        .then(data =>{
+            if (data.gender === 'male'){
+                document.getElementById('result-gender').innerHTML =  'Male'
+                document.getElementById('result-probability').innerHTML = data.probability
+            }else{
+                document.getElementById('result-gender').innerHTML =  'Female'
+                document.getElementById('result-probability').innerHTML = data.probability
+            }
+            
+    })
+    
+}
+
+function getDataFromAPI(name){
+    return fetch(basicURL+ `?name=${name}`, {
+        method: 'GET',
+    }).then(res => {
+        if (!res.ok){
+            error = res.json()
+            throw new Error(`Error: API response was not ok!, ${error.error}`)
+        }
+
+        return res.json()
+    }).catch(error => {
+        showMessage('error', error.Error)
+    })
+    
 }
 
 function showMessage(type, msg){
