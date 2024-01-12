@@ -1,3 +1,6 @@
+window.onload = function(){
+    document.getElementById('saved-results-box').innerHTML = 'No Results'
+}
 
 
 function OnSubmit(form){
@@ -6,6 +9,10 @@ function OnSubmit(form){
 
 function OnSave(form){
     console.log(form.name + " button")
+}
+
+function ResetSavedResults(){
+    document.getElementById('saved-results-box').innerHTML = 'No Results'
 }
 
 function validateName(form){
