@@ -18,14 +18,14 @@ body {
     flex-direction: column;
 }
 
-#heading{
+#heading {
     margin-right: auto;
     margin-left: auto;
     margin-top: 5px;
     margin-bottom: 10px;
 }
 
-#heading h1{
+#heading h1 {
     margin: inherit;
 }
 
@@ -142,7 +142,7 @@ input[type=button]:hover {
     flex-direction: column;
 }
 
-#prediction-box{
+#prediction-box {
     display: flex;
     flex-direction: row;
     height: 80px;
@@ -153,17 +153,37 @@ input[type=button]:hover {
     margin: auto;
 }
 
-#saved-results-box{
+#saved-results-box {
     display: flex;
-    height: 40px;
     width: 300px;
     border-radius: 10px;
     border: 1px solid black;
     background-color: aliceblue;
     margin: auto;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
+#saved-result-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-#saved-result-heading{
+#saved-result-heading * {
     float: left;
+    display: block;
+}
+
+#saved-result-heading button {
+    background-color: pink;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#saved-result-heading button:hover {
+    background-color: red;
+    color: white;
 }
