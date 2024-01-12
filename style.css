@@ -10,7 +10,7 @@ body {
     margin-top: 100px;
     margin-right: auto;
     margin-left: auto;
-    opacity: 85%;
+    opacity: 90%;
     border-radius: 30px;
     background-color: azure;
     padding: 50px 30px 10px 30px;
@@ -63,17 +63,17 @@ label {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-  
-  .radio-container input[type=radio] {
+}
+
+.radio-container input[type=radio] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-  }
-  
-  .checkmark {
+}
+
+.checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -81,45 +81,51 @@ label {
     width: 20px;
     background-color: #eee;
     border-radius: 50%;
-  }
-  
-  .radio-container:hover input ~ .checkmark {
+}
+
+.radio-container:hover input~.checkmark {
     background-color: #ccc;
-  }
-  
-  .radio-container input:checked ~ .checkmark {
+}
+
+.radio-container input:checked~.checkmark {
     background-color: #2196F3;
-  }
-  
-  .checkmark:after {
+}
+
+.checkmark:after {
     content: "";
     position: absolute;
     display: none;
-  }
-  
-  .radio-container input:checked ~ .checkmark:after {
+}
+
+.radio-container input:checked~.checkmark:after {
     display: block;
-  }
-  
-  .radio-container .checkmark:after {
+}
+
+.radio-container .checkmark:after {
     top: 30%;
     left: 30%;
     width: 40%;
     height: 40%;
     border-radius: 50%;
     background: white;
-  }
+}
 
-  input[type=button]{
+input[type=button] {
     background-color: aquamarine;
     border-style: hidden;
     border-radius: 5px;
     padding: 10px;
     margin: 5px;
     width: 100px;
-  }
+    cursor: pointer;
+}
 
-  .button-box{
+input[type=button]:hover {
+    background-color: aqua;
+}
+
+.button-box {
     display: flex;
+    margin-top: 10px;
     flex-direction: column;
-  }
+}
