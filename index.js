@@ -1,19 +1,31 @@
 window.onload = function(){
     document.getElementById('saved-results-box').innerHTML = 'No Results'
-    showMessage()
+    showMessage('info', 'Welcome to Genderize!')
 }
 
 
-function OnSubmit(form){
-    console.log(form.name + " button")
+function OnSubmit(button){
+    form = document.getElementById("submission-form")
+    console.log(button.name + " button")
+    showMessage('info', 'Name submitted')
+    resetForm(form)
 }
 
-function OnSave(form){
-    console.log(form.name + " button")
+function OnSave(button){
+    form = document.getElementById("submission-form")
+    console.log(button.name + " button")
+    showMessage('info', 'Name saved')
+    resetForm(form)
+
+}
+
+function resetForm(form){
+    form.reset()
 }
 
 function ResetSavedResults(){
     document.getElementById('saved-results-box').innerHTML = 'No Results'
+    showMessage('warn', 'Saved name cleared')
 }
 
 function validateName(form){
@@ -21,12 +33,19 @@ function validateName(form){
     return 0
 }
 
-function showMessage(type){
+function showMessage(type, msg){
     var messageBox = document.getElementById('bottom-message-box')
-    messageBox.className = 'info-box'
-    messageBox.innerHTML = 'Welcome to the Genderize!'
+    var msgStyle
+    if (type === 'info'){
+        msgStyle = 'info-box'
+    }else if(type === 'warn'){
+        msgStyle = 'error-box'
+    }
+    messageBox.className = msgStyle
+    messageBox.innerHTML = msg
+    messageBox.style.opacity = 100
+    messageBox.setAttribute('hidden', 'false')
     setTimeout(() => {
-        messageBox.setAttribute('hidden', 'true')
         messageBox.style.opacity = 0
-    }, 3000);
+    }, 5000);
 }
