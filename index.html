@@ -12,8 +12,11 @@
 
 <body>
     <section id="modal">
-        <div class="flex-container">
-            <div class="flex-item">
+        <div id="heading">
+            <h1>Genderize</h1>
+        </div>
+        <section class="flex-container">
+            <section class="flex-item">
                 <h2>
                     Mr. or Ms. ?
                 </h2>
@@ -26,7 +29,7 @@
                     <p>Please select your gender:</p>
                     <div class="gender-selection ">
                         <label class="radio-container">Male
-                            <input type="radio" id="male" name="gender" value="male" checked="checked">
+                            <input type="radio" id="male" name="gender" value="male">
                             <span class="checkmark"></span>
                         </label>
                         <label class="radio-container">Female
@@ -40,13 +43,22 @@
                         <input type="button" name="submit" id="submit" value="Submit" onclick="OnSubmit(this)">
                     </div>
                 </form>
-            </div>
-            <div class="flex-item">
+            </section>
+            <section class="flex-item">
                 <h3>
                     Our Prediction:
                 </h3>
-            </div>
-        </div>
+                <div id="prediction-box">
+                    <div id="results">
+                        <div></div>
+                    </div>
+
+                </div>
+                <div id="saved-results-box">
+                    
+                </div>
+            </section>
+        </section>
     </section>
 </body>
 
